@@ -91,14 +91,25 @@ describe('Casos de ejemplo', () => { // Engloba todas las pruebas (it) de un cas
     expect(page.getMunicipio()).toEqual('');
   });
 
+  //PRUEBAS.E2
   it('Debe probar que el botón de borrar hobbie funciona', async () => {
     page.navigateToReactivePage();
+    await browser.waitForAngular();
     await page.clickAddButton();
-    expect(page.deleteHobbieButtonIsPresent()).toBeTruthy(); // esperamos que el botón este presente en la página
-    await page.setHobbie('comer aguacates');//inserto un hobbie
-    expect(page.getHobbie()).toEqual('comer aguacates');//verifico la info que acabo de ingresar
     await page.clickDeleteHobbieButton();
-    expect(page.getHobbie()).toEqual('');
+    expect(page.deleteHobbieButtonIsPresent()).toBeFalsy();
+  });
+
+  //PRUEBAS.E3
+  it('Crear el arreglo de Jorges hacer una prueba que escriba cada uno de los string del arreglo en el campo correo y verificar que el mensaje de error aparezca en la pantalla', async () => {
+    const arr=['jorge', 'jorge@' , 'jorge@ho'];
+    page.navigateToReactivePage();
+    await browser.waitForAngular();
+    for(let i=0; i<arr.length;i++)
+    {
+      await page.setMail(arr[i]);
+      expect(page.getTextOfEspecificError(0)).toBeTruthy();
+    }
   });
   // *** EJERCICIOS PARA PRACTICAR ****
   // 1. llenar todos los campos del formulario reactivo correctamente, presionar el botón guardar y verificar que se

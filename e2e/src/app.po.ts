@@ -11,10 +11,10 @@ export class ReactivePage { // clase de la página formularios reactive
   passwordconfinput:ElementFinder;
   estadoinput:ElementFinder;
   municipioinput:ElementFinder;
-  hobbieinput:ElementFinder;
+  //hobbieinput:ElementFinder;
   saveButton: ElementFinder;
   addButton: ElementFinder;
-  deletehobbieButton: ElementFinder;
+  deletehobbieButton:ElementArrayFinder;
   errorsText: ElementArrayFinder;
 
   constructor() {
@@ -27,11 +27,10 @@ export class ReactivePage { // clase de la página formularios reactive
     this.passwordconfinput = element(by.css('input[formControlName=pass2]'));
     this.estadoinput = element(by.css('input[formControlName=estado]'));
     this.municipioinput = element(by.css('input[formControlName=municipio]'));
-    this.hobbieinput = element(by.css('input[formControlName=0]'));//solo funcionara por ahora para el input 0 en el arreglo de hobbies
+    //this.hobbieinput = element(by.css('input[formControlName=0]'));//solo funcionara por ahora para el input 0 en el arreglo de hobbies
     this.saveButton = element(by.className('btn-outline-primary')); // obtenemos el elemento por el nombre de la clase
     this.addButton = element(by.className('btn-success'));
-    this.deletehobbieButton = element(by.className('btn-danger'));
-    //this.deletehobbieButton = element(by.className('btn-danger'));
+    this.deletehobbieButton = element.all(by.className('btn-danger'));
     this.errorsText = element.all(by.css('.text-danger')); // obtenemos todos los elementos con la clase text-danger
   }
 
@@ -105,14 +104,6 @@ export class ReactivePage { // clase de la página formularios reactive
     return this.municipioinput.getAttribute('value') as Promise<string>;
   }
 
-  setHobbie(hobbie: string): Promise<void>{ // escribe en el input lastname
-    this.hobbieinput.clear();
-    return this.hobbieinput.sendKeys(hobbie) as Promise<void>;
-  }
-  getHobbie(): Promise<string>{ // regresa el texto del input lastname
-    return this.hobbieinput.getAttribute('value') as Promise<string>;
-  }
-  
   clickSaveButton(): Promise<void>{ // presiona el botón guardar
     return this.saveButton.click() as Promise<void>;
   }
